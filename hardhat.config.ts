@@ -12,11 +12,20 @@ const KALYCHAIN_RPC_URL =
   process.env.KALYCHAIN_RPC_URL || "https://rpc.kalychain.io/rpc"
 const TESTNET_RPC_URL =
   process.env.TESTNET_RPC_URL || "https://testnetrpc.kalychain.io/rpc"
-const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
+
+// Check if running in CI environment (GitHub Actions)
+const isCI = process.env.CI === "true"
+
+// Use dummy private key for CI, real one for local development
+const PRIVATE_KEY = isCI 
+  ? "0x0000000000000000000000000000000000000000000000000000000000000001" 
+  : process.env.PRIVATE_KEY || ""
+  
 const KALYSCAN_API_KEY = process.env.KALYSCAN_API_KEY || ""
 
 // Debug - remove this after confirming
 console.log("KALYSCAN_API_KEY loaded:", KALYSCAN_API_KEY ? "Yes (length: " + KALYSCAN_API_KEY.length + ")" : "No")
+console.log("Running in CI environment:", isCI ? "Yes" : "No")
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
