@@ -29,8 +29,8 @@ jobs:
         echo "KALYSCAN_API_KEY=1234567890123456789012345678901" >> .env
         cat .env
 
-    # Skip the slow/problematic tests in CI
-    - name: Run only fast tests
-      run: npx hardhat test --grep "GovernanceToken" --network hardhat
+    # Run the CI-specific tests only
+    - name: Run CI tests
+      run: npx hardhat test test/ci/governance-token.test.ts --network hardhat
       env:
         CI: "true" 
