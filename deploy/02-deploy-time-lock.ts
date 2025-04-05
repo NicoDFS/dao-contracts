@@ -25,7 +25,7 @@ const deployTimeLock: DeployFunction = async function (hre: HardhatRuntimeEnviro
   })
   log(`TimeLock at ${timeLock.address}`)
   if (!developmentChains.includes(network.name) && process.env.KALYSCAN_API_KEY) {
-    await verify(timeLock.address, [])
+    await verify(timeLock.address, [], "contracts/governance_standard/TimeLock.sol:TimeLock")
   }
 }
 
